@@ -1,13 +1,29 @@
 'use strict'
 const GI = {
-	createElement (tag, atributes) {
-		// let element = document.getElementById(tag);
-        // element.style =atributes;
-		return document.createElement(tag)
-	}
-}
+    createElement(tag) {
+        const liElement = document.createElement('li');
 
+        const checkElement = document.createElement('input');
+        checkElement.type = 'checkbox';
+        const text = document.createElement('span');
+        text.innerText = tag
+        
+        liElement.appendChild(checkElement);
+        liElement.appendChild(text);
+        console.log(text)
+        checkElement.addEventListener('change', function() {
+            if (checkElement.checked) {
+                text.style.textDecoration = 'line-through';
+                text.style.color = 'gray';
+            } else {
+                text.style.textDecoration = 'none';
+                text.style.color = 'initial';
+            }
+        });
 
+        return liElement;
+    }
+};
 const to_do = [
     'Alimentar al perro',
     'Estudiar para prueba escrita',
@@ -19,7 +35,7 @@ const to_do = [
 function crearElementos(){
     const boxList = document.getElementById('list');
     to_do.forEach((item)=>{
-        boxList.innerHTML =GI.createElement('input','checked');
+        boxList.appendChild(GI.createElement(item));
     });
 
 }
